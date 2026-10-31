@@ -27,3 +27,4 @@ dist-ssr
 *.mp4
 *.pdf
 scratch_served_css.js
+.vercel
