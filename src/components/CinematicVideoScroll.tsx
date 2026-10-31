@@ -7,7 +7,7 @@ interface CinematicVideoScrollProps {
 }
 
 export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
-  totalFrames = 120,
+  totalFrames = 240,
   onExploreClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,12 +22,12 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
   const targetFrameRef = useRef<number>(0);
   const lastDrawnFrameRef = useRef<number>(-1);
 
-  // Preload frames in high quality
+  // Progressive frame preloading: load initial batch rapidly, then stream remaining frames
   useEffect(() => {
     let isCancelled = false;
     let count = 0;
 
-    // Load first frame immediately
+    // Load first keyframe immediately to paint canvas without delay
     const firstImg = new Image();
     firstImg.src = `/frames/frame_000.webp`;
     firstImg.onload = () => {
@@ -40,58 +40,88 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
       }
     };
 
-    // Preload remaining frames concurrently
+    // Staggered loading: load every 4th frame first for instantaneous scrubbing responsiveness
+    const priorityIndices: number[] = [];
+    const regularIndices: number[] = [];
+
     for (let i = 1; i < totalFrames; i++) {
-      const img = new Image();
-      img.src = `/frames/frame_${String(i).padStart(3, '0')}.webp`;
-      img.onload = () => {
-        if (!isCancelled) {
-          imagesRef.current[i] = img;
-          count++;
-          setLoadedCount(count);
-          if (count >= 15) {
-            setIsLoaded(true);
-          }
-        }
-      };
+      if (i % 4 === 0) {
+        priorityIndices.push(i);
+      } else {
+        regularIndices.push(i);
+      }
     }
+
+    const loadBatch = (indices: number[], onDone?: () => void) => {
+      let loadedInBatch = 0;
+      if (indices.length === 0) {
+        onDone?.();
+        return;
+      }
+      indices.forEach((index) => {
+        const img = new Image();
+        img.src = `/frames/frame_${String(index).padStart(3, '0')}.webp`;
+        img.onload = () => {
+          if (!isCancelled) {
+            imagesRef.current[index] = img;
+            count++;
+            setLoadedCount(count);
+            loadedInBatch++;
+            if (count >= 12) {
+              setIsLoaded(true);
+            }
+            if (loadedInBatch === indices.length) {
+              onDone?.();
+            }
+          }
+        };
+        img.onerror = () => {
+          loadedInBatch++;
+          if (loadedInBatch === indices.length) {
+            onDone?.();
+          }
+        };
+      });
+    };
+
+    // Load priority frames first, then remainder
+    loadBatch(priorityIndices, () => {
+      if (!isCancelled) {
+        loadBatch(regularIndices);
+      }
+    });
 
     return () => {
       isCancelled = true;
     };
   }, [totalFrames]);
 
-  // Robust canvas drawing
+  // High performance cover drawing onto canvas with retina DPR scaling
   const drawFrame = (frameIndex: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
-    // Find requested frame or the closest loaded frame
+    // Nearest neighbor fallback: if exact frame is still downloading, find nearest loaded frame
     let img: HTMLImageElement | null = imagesRef.current[frameIndex];
     if (!img || !img.complete) {
-      // Find nearest loaded frame backward
-      for (let f = frameIndex - 1; f >= 0; f--) {
-        if (imagesRef.current[f]?.complete) {
-          img = imagesRef.current[f];
+      for (let offset = 1; offset < 30; offset++) {
+        const prev = frameIndex - offset;
+        if (prev >= 0 && imagesRef.current[prev]?.complete) {
+          img = imagesRef.current[prev];
           break;
         }
-      }
-      // If still none, find nearest forward
-      if (!img || !img.complete) {
-        for (let f = frameIndex + 1; f < totalFrames; f++) {
-          if (imagesRef.current[f]?.complete) {
-            img = imagesRef.current[f];
-            break;
-          }
+        const next = frameIndex + offset;
+        if (next < totalFrames && imagesRef.current[next]?.complete) {
+          img = imagesRef.current[next];
+          break;
         }
       }
     }
 
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
-    // Canvas coordinate dimensions
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -104,7 +134,6 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    // Cover calculation
     const canvasRatio = width / height;
     const imgRatio = img.naturalWidth / img.naturalHeight;
     let drawWidth = width;
@@ -125,13 +154,13 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     lastDrawnFrameRef.current = frameIndex;
   };
 
-  // High-performance RAF lerp render loop
+  // High-performance RAF lerp loop (interpolates towards targetFrame on scroll)
   useEffect(() => {
     const lerp = (start: number, end: number, factor: number) => start + (end - start) * factor;
 
     const tick = () => {
-      // Smooth interpolation towards target frame
-      currentFrameRef.current = lerp(currentFrameRef.current, targetFrameRef.current, 0.16);
+      // 0.22 lerp factor guarantees ultra-smooth, instant-feeling scroll scrub
+      currentFrameRef.current = lerp(currentFrameRef.current, targetFrameRef.current, 0.22);
       const targetIndex = Math.max(0, Math.min(totalFrames - 1, Math.round(currentFrameRef.current)));
 
       drawFrame(targetIndex);
@@ -148,7 +177,9 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     };
   }, [totalFrames]);
 
-  // Viewport scroll measurement
+  // Precise scroll calculation:
+  // Starts when container top hits top of viewport (scrolled = 0)
+  // Reaches 100% when reaching the end of the scroll track
   useEffect(() => {
     const handleScroll = () => {
       const container = containerRef.current;
@@ -160,7 +191,8 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
 
       if (totalScrollable <= 0) return;
 
-      // Calculate progress from 0 (top of section enters) to 1 (reaches bottom of section)
+      // When rect.top is 0, user has scrolled to start of video
+      // When rect.top is -totalScrollable, user has completed video
       const scrolled = -rect.top;
       const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
 
@@ -178,16 +210,16 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     };
   }, [totalFrames]);
 
-  // Stage narrative copy
+  // Stage narrative copy reflecting the 3 engineering milestones
   const getStageContent = () => {
-    if (currentProgress < 0.3) {
+    if (currentProgress < 0.33) {
       return {
         badge: 'ENGINEERING EXCELLENCE • UK-WIDE',
         title: 'PRECISION CONCRETE & SLIPFORM',
         subtitle: 'Turnkey vertical core installations delivered with micron-level tolerance.',
         step: '01 / INITIATION',
       };
-    } else if (currentProgress < 0.68) {
+    } else if (currentProgress < 0.72) {
       return {
         badge: 'HIGH-TOLERANCE MONOLITHIC CORES',
         title: 'CONTINUOUS 24/7 HYDRAULIC CLIMB',
@@ -209,70 +241,67 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full bg-slate-950"
-      style={{ height: '280vh' }}
+      className="relative w-full bg-[#0d0f1f]"
+      style={{ height: '360vh' }}
     >
-      {/* Sticky Fullscreen Frame Player: stays pinned until scroll completes */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-slate-950 z-20">
+      {/* Sticky Fullscreen Player: pinned in viewport across 360vh scroll track */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#0d0f1f] z-20">
         {/* Render Canvas */}
         <canvas
           ref={canvasRef}
           className="w-full h-full block object-cover"
-          style={{ filter: 'contrast(1.04) brightness(0.98)' }}
+          style={{ filter: 'contrast(1.05) brightness(1.02)' }}
         />
 
-        {/* Ambient Vignette & Cinema Gradients */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-950 via-transparent to-slate-950/70" />
-        <div className="absolute inset-0 pointer-events-none bg-radial-[at_center] from-transparent via-transparent to-slate-950/75" />
+        {/* Cinematic Vignette */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0d0f1f] via-transparent to-[#0d0f1f]/60" />
 
         {/* Top HUD: Status Bar */}
         <div className="absolute top-24 sm:top-28 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none z-30">
-          <div className="flex items-center gap-3 bg-slate-950/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-800 text-xs text-slate-300 shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse" />
+          <div className="flex items-center gap-3 bg-[#0d0f1f]/85 backdrop-blur-md px-4 py-2 rounded-full border border-blue-900/40 text-xs text-slate-300 shadow-xl">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#3b82f6] animate-pulse" />
             <span className="font-mono-tech tracking-wider uppercase font-semibold text-[11px] text-[#60a5fa]">
-              Interactive Slipform Sequence
+              Slipform Engineering Sequence
             </span>
           </div>
 
-          <div className="hidden sm:flex items-center gap-3 bg-slate-950/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-800 text-xs text-slate-300 shadow-xl font-mono-tech">
-            <span className="text-slate-500">{stage.step}</span>
-            <span className="text-slate-700">|</span>
+          <div className="flex items-center gap-3 bg-[#0d0f1f]/85 backdrop-blur-md px-4 py-2 rounded-full border border-blue-900/40 text-xs text-slate-300 shadow-xl font-mono-tech">
+            <span className="text-slate-400">{stage.step}</span>
+            <span className="text-slate-600">|</span>
             <span className="text-[#60a5fa] font-bold">{Math.round(currentProgress * 100)}% SCROLLED</span>
           </div>
         </div>
 
-        {/* Center / Lower Cinematic Narrative Card */}
-        <div className="absolute bottom-10 sm:bottom-14 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-30 pointer-events-none">
-          <div className="max-w-2xl bg-slate-950/90 backdrop-blur-xl border border-slate-800/90 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-            <div className="absolute -top-12 -right-12 w-40 h-40 bg-[#3b82f6]/15 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="flex items-center gap-2 mb-3">
-              <span className="badge-amber text-[10px] sm:text-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#3b82f6]" />
+        {/* Compact Right-Aligned Overlay Card */}
+        <div className="absolute bottom-10 right-4 sm:right-8 md:right-12 z-30 pointer-events-none max-w-sm sm:max-w-md w-full">
+          <div className="bg-[#0d0f1f]/90 backdrop-blur-xl border border-blue-900/40 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="badge-amber text-[10px]">
+                <Sparkles className="w-3 h-3 text-[#3b82f6]" />
                 {stage.badge}
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight uppercase leading-tight mb-2">
+            <h2 className="text-lg sm:text-xl font-extrabold text-white tracking-tight uppercase leading-snug mb-1.5">
               {stage.title}
             </h2>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 font-normal">
+            <p className="text-xs text-slate-300 leading-relaxed mb-4 font-normal">
               {stage.subtitle}
             </p>
 
-            {/* Scrub Progress Bar & Quick Action */}
-            <div className="space-y-3">
+            {/* Scrub Progress Bar */}
+            <div className="space-y-2">
               <div className="flex items-center justify-between text-[11px] font-mono-tech text-slate-400">
                 <span className="flex items-center gap-1.5 text-[#60a5fa] font-semibold">
-                  <Play className="w-3 h-3 fill-[#60a5fa] text-[#60a5fa]" /> Scroll down to sequence
+                  <Play className="w-3 h-3 fill-[#60a5fa] text-[#60a5fa]" /> Frame-by-frame scrub
                 </span>
-                <span>Frame {Math.round(currentFrameRef.current) + 1} / {totalFrames}</span>
+                <span>{Math.round(currentFrameRef.current) + 1} / {totalFrames}</span>
               </div>
-              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+              <div className="w-full h-1.5 bg-slate-800/80 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-[#29295d] via-[#3b82f6] to-[#60a5fa] transition-all duration-75 rounded-full"
-                  style={{ width: `${Math.max(3, currentProgress * 100)}%` }}
+                  style={{ width: `${Math.max(4, currentProgress * 100)}%` }}
                 />
               </div>
 
@@ -282,7 +311,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
                     onClick={onExploreClick}
                     className="text-xs uppercase font-bold text-[#60a5fa] hover:text-[#93c5fd] transition flex items-center gap-1.5 cursor-pointer font-mono-tech"
                   >
-                    <span>Explore Case Studies & Slipform Data</span>
+                    <span>View Completed Projects</span>
                     <span>→</span>
                   </button>
                 </div>
@@ -292,24 +321,27 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
         </div>
 
         {/* Scroll Indicator Prompt */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-[11px] font-mono-tech uppercase tracking-widest text-slate-400 pointer-events-none z-30 animate-bounce">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-[11px] font-mono-tech uppercase tracking-widest text-slate-300 pointer-events-none z-30 animate-bounce">
           <ArrowDown className="w-3.5 h-3.5 text-[#60a5fa]" />
-          <span>Scroll to explore</span>
+          <span>Scroll to advance core construction</span>
         </div>
 
-        {/* Loading Pill Indicator */}
+        {/* Preload Status Indicator */}
         {!isLoaded && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-950/95 backdrop-blur-md border border-slate-800 px-6 py-4 rounded-2xl flex items-center gap-3 z-40 shadow-2xl">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0d0f1f]/95 backdrop-blur-md border border-blue-900/40 px-6 py-4 rounded-2xl flex items-center gap-3 z-40 shadow-2xl">
             <div className="w-5 h-5 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
             <div className="text-xs text-slate-300">
-              <span className="font-bold text-white block">Loading Ultra-HD Slipform Sequence</span>
+              <span className="font-bold text-white block">Buffering Full High-Definition Sequence</span>
               <span className="text-[11px] text-slate-400 font-mono-tech">
-                {Math.round((loadedCount / totalFrames) * 100)}% buffered
+                {Math.round((loadedCount / totalFrames) * 100)}% preloaded
               </span>
             </div>
           </div>
         )}
       </div>
+
+      {/* Seamless Transition Border to Next Section */}
+      <div className="relative z-20 h-16 bg-gradient-to-b from-[#0d0f1f] to-white" />
     </div>
   );
 };
