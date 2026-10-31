@@ -84,20 +84,20 @@ export function App() {
 
   const getServiceIcon = (name: string) => {
     switch (name) {
-      case 'Building2': return <Building2 className="w-6 h-6 text-amber-600" />;
-      case 'Layers': return <Layers className="w-6 h-6 text-amber-600" />;
-      case 'Grid': return <Grid className="w-6 h-6 text-amber-600" />;
-      case 'Wrench': return <Wrench className="w-6 h-6 text-amber-600" />;
-      case 'Sparkles': return <Sparkles className="w-6 h-6 text-amber-600" />;
-      case 'HardHat': return <HardHat className="w-6 h-6 text-amber-600" />;
-      case 'AlertTriangle': return <AlertTriangle className="w-6 h-6 text-amber-600" />;
-      case 'Users': return <Users className="w-6 h-6 text-amber-600" />;
-      default: return <Building2 className="w-6 h-6 text-amber-600" />;
+      case 'Building2': return <Building2 className="w-6 h-6 text-[#29295d]" />;
+      case 'Layers': return <Layers className="w-6 h-6 text-[#29295d]" />;
+      case 'Grid': return <Grid className="w-6 h-6 text-[#29295d]" />;
+      case 'Wrench': return <Wrench className="w-6 h-6 text-[#29295d]" />;
+      case 'Sparkles': return <Sparkles className="w-6 h-6 text-[#29295d]" />;
+      case 'HardHat': return <HardHat className="w-6 h-6 text-[#29295d]" />;
+      case 'AlertTriangle': return <AlertTriangle className="w-6 h-6 text-[#29295d]" />;
+      case 'Users': return <Users className="w-6 h-6 text-[#29295d]" />;
+      default: return <Building2 className="w-6 h-6 text-[#29295d]" />;
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-amber-500 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-50/800 selection:text-white relative overflow-x-hidden">
       {/* Dynamic Animated Canvas Grid & Structural Filament Background */}
       <ConcreteGridBackground />
 
@@ -106,21 +106,21 @@ export function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between items-center gap-3">
           <div className="flex items-center gap-4 text-slate-400">
             <span className="flex items-center gap-1.5 font-medium">
-              <MapPin className="w-3.5 h-3.5 text-amber-500" /> Manchester, UK (Nationwide Delivery)
+              <MapPin className="w-3.5 h-3.5 text-[#3b82f6]" /> Manchester, UK (Nationwide Delivery)
             </span>
             <span className="hidden sm:inline text-slate-700">|</span>
             <span className="hidden sm:flex items-center gap-1.5 text-slate-400">
-              <Award className="w-3.5 h-3.5 text-amber-500" /> CHAS SSIP Accredited Contractor [CDM]
+              <Award className="w-3.5 h-3.5 text-[#3b82f6]" /> CHAS SSIP Accredited Contractor [CDM]
             </span>
           </div>
 
           <div className="flex items-center gap-4 text-slate-400">
             <a 
               href={`tel:${COMPANY_PROFILE.contact.legacyEmergencyMobile}`} 
-              className="flex items-center gap-1.5 text-amber-400 hover:text-white font-semibold transition"
+              className="flex items-center gap-1.5 text-[#60a5fa] hover:text-white font-semibold transition"
               title="Legacy 24/7 Save-a-Slab hotline"
             >
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-400" /> 
+              <AlertTriangle className="w-3.5 h-3.5 text-[#60a5fa]" /> 
               <span>24/7 Emergency Response: {COMPANY_PROFILE.contact.legacyEmergencyMobile}</span>
             </a>
             <span className="hidden md:inline text-slate-700">|</span>
@@ -128,7 +128,7 @@ export function App() {
               href={COMPANY_PROFILE.contact.linkedin} 
               target="_blank" 
               rel="noreferrer" 
-              className="hidden md:flex items-center gap-1.5 hover:text-amber-400 transition"
+              className="hidden md:flex items-center gap-1.5 hover:text-[#60a5fa] transition"
             >
               <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               <span>LinkedIn</span>
@@ -148,10 +148,10 @@ export function App() {
             <img 
               src="/assets/znb-logo.jpg" 
               alt="ZNB Construction Ltd Logo" 
-              className="h-10 sm:h-11 w-auto object-contain rounded border border-slate-200 group-hover:border-amber-500/50 transition" 
+              className="h-10 sm:h-11 w-auto object-contain rounded border border-slate-200 group-hover:border-[#29295d]/50 transition" 
             />
             <div className="hidden sm:block">
-              <span className="block font-bold text-base tracking-tight text-slate-900 group-hover:text-amber-600 transition leading-tight">
+              <span className="block font-bold text-base tracking-tight text-slate-900 group-hover:text-[#29295d] transition leading-tight">
                 ZNB CONSTRUCTION
               </span>
               <span className="block text-[10px] uppercase tracking-wider text-slate-500 font-semibold">
@@ -164,19 +164,19 @@ export function App() {
           <div className="hidden xl:flex items-center gap-6 text-[13px] font-semibold tracking-wide whitespace-nowrap h-full">
             <button 
               onClick={() => navigateTo('home')}
-              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'home' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'home' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
             >
               Home
             </button>
             <button 
               onClick={() => navigateTo('about')}
-              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'about' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'about' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
             >
               About Us
             </button>
             <button 
               onClick={() => navigateTo('team')}
-              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'team' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'team' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
             >
               Our Team
             </button>
@@ -185,7 +185,7 @@ export function App() {
             <div className="relative group h-full flex items-center">
               <button 
                 onClick={() => navigateTo('services')}
-                className={`h-full flex items-center gap-1 relative transition cursor-pointer px-1 ${currentRoute.startsWith('service') ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+                className={`h-full flex items-center gap-1 relative transition cursor-pointer px-1 ${currentRoute.startsWith('service') ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
               >
                 <span>Services</span>
                 <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-slate-400 group-hover:text-slate-900" />
@@ -202,7 +202,7 @@ export function App() {
                   >
                     <span>{srv.title}</span>
                     {srv.id === 'slipform-packages' && (
-                      <span className="text-[9px] bg-amber-50 text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded font-bold uppercase">Priority</span>
+                      <span className="text-[9px] bg-blue-50/80 text-[#1e1e4a] border border-blue-200 px-1.5 py-0.5 rounded font-bold uppercase">Priority</span>
                     )}
                   </button>
                 ))}
@@ -211,25 +211,25 @@ export function App() {
 
             <button 
               onClick={() => navigateTo('projects')}
-              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute.startsWith('project') ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute.startsWith('project') ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
             >
               Projects
             </button>
             <button 
               onClick={() => navigateTo('health-safety')}
-              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'health-safety' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'health-safety' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
             >
               Health & Safety
             </button>
             <button 
               onClick={() => navigateTo('careers')}
-              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'careers' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'careers' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
             >
               Careers
             </button>
             <button 
               onClick={() => navigateTo('contact')}
-              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'contact' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-amber-600' : 'text-slate-600 hover:text-slate-950'}`}
+              className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'contact' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
             >
               Contact
             </button>
@@ -247,7 +247,7 @@ export function App() {
               href={`tel:${COMPANY_PROFILE.contact.office.replace(/\s+/g, '')}`}
               className="btn-secondary text-xs font-semibold py-2.5 px-3.5 whitespace-nowrap flex items-center gap-1.5"
             >
-              <Phone className="w-3.5 h-3.5 text-amber-600" />
+              <Phone className="w-3.5 h-3.5 text-[#29295d]" />
               <span>{COMPANY_PROFILE.contact.office}</span>
             </a>
           </div>
@@ -279,7 +279,7 @@ export function App() {
               {servicesDropdownOpen && (
                 <div className="pl-4 py-2 flex flex-col gap-2 text-sm text-slate-500">
                   {SERVICES_DATA.map(s => (
-                    <button key={s.id} onClick={() => openService(s.slug)} className="text-left py-1 hover:text-amber-600">
+                    <button key={s.id} onClick={() => openService(s.slug)} className="text-left py-1 hover:text-[#29295d]">
                       • {s.title}
                     </button>
                   ))}
@@ -315,7 +315,7 @@ export function App() {
             <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white via-slate-50 to-slate-100 py-28 sm:py-36">
               {/* Subtle ambient lighting */}
               <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
-              <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
+              <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-blue-50/800/10 rounded-full blur-[140px] pointer-events-none" />
 
               <div 
                 className="absolute inset-0 z-0 bg-cover bg-center"
@@ -328,13 +328,13 @@ export function App() {
 
               <div className="max-w-5xl mx-auto flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 relative z-20">
                 <div className="badge-amber mb-8">
-                  <ShieldCheck className="w-4 h-4 text-amber-600" />
+                  <ShieldCheck className="w-4 h-4 text-[#29295d]" />
                   <span>Nationwide Concrete & Slipform Contractor • Est. 2013</span>
                 </div>
                 
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-950 mb-6 uppercase leading-[1.05] max-w-4xl">
                   Engineering Precision <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#29295d] via-[#3b82f6] to-[#1e1e4a]">
                     Concrete & Slipform
                   </span>
                 </h1>
@@ -420,14 +420,14 @@ export function App() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 pt-6 border-t border-slate-200">
                     <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200">
-                      <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                       <div>
                         <h4 className="font-bold text-sm text-slate-950">First-Time Accuracy</h4>
                         <p className="text-xs text-slate-600 mt-0.5">Eliminating costly post-pour remedial delays</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200">
-                      <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                       <div>
                         <h4 className="font-bold text-sm text-slate-950">Save-a-Slab Response</h4>
                         <p className="text-xs text-slate-600 mt-0.5">Rapid nationwide emergency deployment</p>
@@ -445,7 +445,7 @@ export function App() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-white/95 backdrop-blur border border-slate-200 text-xs shadow-md">
-                      <span className="font-mono-tech text-amber-600 uppercase font-bold tracking-wider block mb-1">
+                      <span className="font-mono-tech text-[#29295d] uppercase font-bold tracking-wider block mb-1">
                         Tier-1 Contractor Relationships
                       </span>
                       <p className="text-slate-600">
@@ -471,7 +471,7 @@ export function App() {
                     onClick={() => navigateTo('services')} 
                     className="btn-secondary self-start md:self-auto text-xs"
                   >
-                    View All 8 Categories <ArrowRight className="w-3.5 h-3.5 text-amber-600" />
+                    View All 8 Categories <ArrowRight className="w-3.5 h-3.5 text-[#29295d]" />
                   </button>
                 </div>
 
@@ -493,7 +493,7 @@ export function App() {
                           {getServiceIcon(srv.iconName)}
                         </div>
                         {srv.id === 'slipform-packages' && (
-                          <div className="absolute top-3 right-3 bg-amber-500 text-white text-[10px] font-mono-tech font-extrabold uppercase px-2.5 py-1 rounded-full shadow-sm">
+                          <div className="absolute top-3 right-3 bg-blue-50/800 text-white text-[10px] font-mono-tech font-extrabold uppercase px-2.5 py-1 rounded-full shadow-sm">
                             Priority Service
                           </div>
                         )}
@@ -501,7 +501,7 @@ export function App() {
 
                       <div className="p-6 flex-grow flex flex-col justify-between">
                         <div>
-                          <h3 className="text-xl font-bold text-slate-950 group-hover:text-amber-600 transition mb-3">
+                          <h3 className="text-xl font-bold text-slate-950 group-hover:text-[#29295d] transition mb-3">
                             {srv.title}
                           </h3>
                           <p className="text-xs text-slate-600 leading-relaxed mb-6 line-clamp-3">
@@ -509,7 +509,7 @@ export function App() {
                           </p>
                         </div>
 
-                        <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-amber-600">
+                        <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-[#29295d]">
                           <span>Explore Capability</span>
                           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                         </div>
@@ -534,7 +534,7 @@ export function App() {
                     onClick={() => navigateTo('projects')} 
                     className="btn-secondary self-start md:self-auto text-sm"
                   >
-                    View All Case Studies ({PROJECTS_DATA.length}) <ArrowRight className="w-4 h-4 text-amber-600" />
+                    View All Case Studies ({PROJECTS_DATA.length}) <ArrowRight className="w-4 h-4 text-[#29295d]" />
                   </button>
                 </div>
 
@@ -555,14 +555,14 @@ export function App() {
                         <span className="absolute top-4 left-4 bg-white/90 backdrop-blur text-slate-900 text-xs font-bold px-2.5 py-1 rounded-md border border-slate-200 shadow-xs">
                           {proj.location}
                         </span>
-                        <span className={`absolute top-4 right-4 text-xs font-bold px-2.5 py-1 rounded-md shadow-xs ${proj.status === 'Completed' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-amber-50 text-amber-800 border border-amber-200'}`}>
+                        <span className={`absolute top-4 right-4 text-xs font-bold px-2.5 py-1 rounded-md shadow-xs ${proj.status === 'Completed' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-blue-50/80 text-[#1e1e4a] border border-blue-200'}`}>
                           {proj.status}
                         </span>
                       </div>
 
                       <div className="p-6 flex-grow flex flex-col justify-between">
                         <div>
-                          <h3 className="text-xl font-bold text-slate-900 group-hover:text-amber-600 transition mb-2">
+                          <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#29295d] transition mb-2">
                             {proj.title}
                           </h3>
                           <p className="text-xs text-slate-600 line-clamp-3 mb-6">
@@ -573,13 +573,13 @@ export function App() {
                             {proj.technicalMetrics.slice(0, 2).map((m, i) => (
                               <div key={i}>
                                 <span className="block text-[10px] uppercase font-bold text-slate-500">{m.label}</span>
-                                <span className="text-xs font-extrabold text-amber-600 font-mono-tech">{m.value}</span>
+                                <span className="text-xs font-extrabold text-[#29295d] font-mono-tech">{m.value}</span>
                               </div>
                             ))}
                           </div>
                         </div>
 
-                        <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-amber-600">
+                        <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-[#29295d]">
                           <span>Read Full Case Study</span>
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </div>
@@ -600,7 +600,7 @@ export function App() {
                   {CLIENT_LOGOS.map((client, idx) => (
                     <div 
                       key={idx} 
-                      className="h-20 w-44 flex items-center justify-center p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-amber-400 hover:shadow-md transition-all duration-200"
+                      className="h-20 w-44 flex items-center justify-center p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-[#3b82f6] hover:shadow-md transition-all duration-200"
                       title={client.name}
                     >
                       <img 
@@ -636,7 +636,7 @@ export function App() {
                       <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
                         <div>
                           <h4 className="font-bold text-slate-950 text-sm">{t.author}</h4>
-                          <span className="text-xs text-amber-600 font-medium">{t.title} — {t.company}</span>
+                          <span className="text-xs text-[#29295d] font-medium">{t.title} — {t.company}</span>
                         </div>
                         <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
                           {t.source === 'brochure' ? 'Brochure' : 'Website'}
@@ -671,7 +671,7 @@ export function App() {
                     Submit Project Drawings
                   </button>
                   <a href={`tel:${COMPANY_PROFILE.contact.office}`} className="btn-secondary py-3.5 px-6 text-sm font-semibold">
-                    <Phone className="w-4 h-4 text-amber-600" /> {COMPANY_PROFILE.contact.office}
+                    <Phone className="w-4 h-4 text-[#29295d]" /> {COMPANY_PROFILE.contact.office}
                   </a>
                 </div>
               </div>
@@ -716,7 +716,7 @@ export function App() {
                   </div>
 
                   <div className="card-clean bg-white p-8 border border-slate-200">
-                    <h3 className="text-xl font-bold text-amber-700 mb-3">The Principle of First-Time Precision</h3>
+                    <h3 className="text-xl font-bold text-[#1e1e4a] mb-3">The Principle of First-Time Precision</h3>
                     <p className="mb-4">
                       Understanding the needs of our clients is central to our operations. We recognize the crucial importance 
                       of precision in our work, as concrete does not allow for significant adjustments post-installation. 
@@ -752,7 +752,7 @@ export function App() {
               {/* Company Values */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 <div className="card-clean bg-white p-7 border border-slate-200">
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50/80 border border-blue-200 flex items-center justify-center text-[#29295d] mb-4">
                     <ShieldCheck className="w-6 h-6" />
                   </div>
                   <h4 className="font-bold text-lg text-slate-950 mb-2">Safety Paramount</h4>
@@ -761,7 +761,7 @@ export function App() {
                   </p>
                 </div>
                 <div className="card-clean bg-white p-7 border border-slate-200">
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50/80 border border-blue-200 flex items-center justify-center text-[#29295d] mb-4">
                     <Sparkles className="w-6 h-6" />
                   </div>
                   <h4 className="font-bold text-lg text-slate-950 mb-2">Working Smarter</h4>
@@ -770,7 +770,7 @@ export function App() {
                   </p>
                 </div>
                 <div className="card-clean bg-white p-7 border border-slate-200">
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50/80 border border-blue-200 flex items-center justify-center text-[#29295d] mb-4">
                     <Users className="w-6 h-6" />
                   </div>
                   <h4 className="font-bold text-lg text-slate-950 mb-2">Family Values</h4>
@@ -806,7 +806,7 @@ export function App() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                       <div className="absolute bottom-4 left-6 right-6">
-                        <span className="text-xs uppercase tracking-wider text-amber-400 font-bold block mb-1">
+                        <span className="text-xs uppercase tracking-wider text-[#60a5fa] font-bold block mb-1">
                           {member.role}
                         </span>
                         <h3 className="text-2xl font-bold text-white">
@@ -821,7 +821,7 @@ export function App() {
                       </p>
                       <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
                         <span>Industry Experience</span>
-                        <span className="font-bold text-amber-600 font-mono-tech">{member.experienceYears}+ Years</span>
+                        <span className="font-bold text-[#29295d] font-mono-tech">{member.experienceYears}+ Years</span>
                       </div>
                     </div>
                   </div>
@@ -874,14 +874,14 @@ export function App() {
                           {getServiceIcon(s.iconName)}
                         </div>
                         {s.id === 'slipform-packages' && (
-                          <div className="absolute top-4 right-4 bg-amber-500 text-white text-[11px] font-mono-tech font-bold uppercase px-3 py-1 rounded-full shadow-sm">
+                          <div className="absolute top-4 right-4 bg-blue-50/800 text-white text-[11px] font-mono-tech font-bold uppercase px-3 py-1 rounded-full shadow-sm">
                             Priority Service
                           </div>
                         )}
                       </div>
 
                       <div className="p-7">
-                        <h3 className="text-2xl font-bold text-slate-900 group-hover:text-amber-600 transition mb-3">
+                        <h3 className="text-2xl font-bold text-slate-900 group-hover:text-[#29295d] transition mb-3">
                           {s.title}
                         </h3>
                         <p className="text-sm text-slate-600 mb-6 leading-relaxed">
@@ -891,7 +891,7 @@ export function App() {
                         <div className="space-y-2 mb-6">
                           {s.keyFeatures.slice(0, 3).map((f, i) => (
                             <div key={i} className="flex items-center gap-2 text-xs text-slate-700">
-                              <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0" />
+                              <CheckCircle2 className="w-4 h-4 text-[#29295d] shrink-0" />
                               <span>{f}</span>
                             </div>
                           ))}
@@ -899,7 +899,7 @@ export function App() {
                       </div>
                     </div>
 
-                    <div className="p-7 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-600">
+                    <div className="p-7 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#29295d]">
                       <span>View Technical Scope & Projects</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -916,7 +916,7 @@ export function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <button 
                 onClick={() => navigateTo('services')} 
-                className="inline-flex items-center gap-2 text-xs uppercase font-bold text-amber-600 hover:text-amber-700 hover:underline mb-8 cursor-pointer"
+                className="inline-flex items-center gap-2 text-xs uppercase font-bold text-[#29295d] hover:text-[#1e1e4a] hover:underline mb-8 cursor-pointer"
               >
                 ← Back to All Services
               </button>
@@ -949,7 +949,7 @@ export function App() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {activeService.keyFeatures.map((feat, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                           <span className="text-sm text-slate-700">{feat}</span>
                         </div>
                       ))}
@@ -994,20 +994,20 @@ export function App() {
                       Enquire for this Service
                     </button>
                     <a href={`tel:${COMPANY_PROFILE.contact.office}`} className="btn-secondary w-full py-3 text-xs flex items-center justify-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-amber-600" /> Call Estimating
+                      <Phone className="w-3.5 h-3.5 text-[#29295d]" /> Call Estimating
                     </a>
                   </div>
 
                   {/* Emergency Notice if applicable */}
                   {activeService.id === 'concrete-repairs-emergency' && (
-                    <div className="card-clean bg-amber-50/60 p-6 rounded-2xl border border-amber-300">
-                      <div className="flex items-center gap-2 text-amber-800 font-bold text-sm mb-2">
-                        <AlertTriangle className="w-4 h-4 text-amber-600" /> Save a Slab Urgent Hotline
+                    <div className="card-clean bg-blue-50/80/60 p-6 rounded-2xl border border-blue-300">
+                      <div className="flex items-center gap-2 text-[#1e1e4a] font-bold text-sm mb-2">
+                        <AlertTriangle className="w-4 h-4 text-[#29295d]" /> Save a Slab Urgent Hotline
                       </div>
                       <p className="text-xs text-slate-700 mb-4 leading-relaxed">
                         Immediate assistance for plastic state failures, cold-joints, or plant breakdowns:
                       </p>
-                      <a href={`tel:${COMPANY_PROFILE.contact.legacyEmergencyMobile}`} className="block text-center font-bold text-base text-amber-900 bg-amber-200/60 py-2.5 rounded-xl border border-amber-300 hover:bg-amber-200 transition">
+                      <a href={`tel:${COMPANY_PROFILE.contact.legacyEmergencyMobile}`} className="block text-center font-bold text-base text-[#0f172a] bg-blue-200/60 py-2.5 rounded-xl border border-blue-300 hover:bg-blue-200 transition">
                         {COMPANY_PROFILE.contact.legacyEmergencyMobile}
                       </a>
                     </div>
@@ -1020,7 +1020,7 @@ export function App() {
                         <button
                           key={s.id}
                           onClick={() => openService(s.slug)}
-                          className={`text-left text-xs py-2 px-3 rounded-lg transition cursor-pointer ${s.slug === activeService.slug ? 'bg-amber-500 text-white font-bold' : 'text-slate-700 hover:bg-slate-50'}`}
+                          className={`text-left text-xs py-2 px-3 rounded-lg transition cursor-pointer ${s.slug === activeService.slug ? 'bg-blue-50/800 text-white font-bold' : 'text-slate-700 hover:bg-slate-50'}`}
                         >
                           {s.title}
                         </button>
@@ -1048,7 +1048,7 @@ export function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <button 
                 onClick={() => navigateTo('projects')} 
-                className="inline-flex items-center gap-2 text-xs uppercase font-bold text-amber-600 hover:text-amber-700 hover:underline mb-8 cursor-pointer"
+                className="inline-flex items-center gap-2 text-xs uppercase font-bold text-[#29295d] hover:text-[#1e1e4a] hover:underline mb-8 cursor-pointer"
               >
                 ← Back to All Case Studies
               </button>
@@ -1086,7 +1086,7 @@ export function App() {
                       {activeProject.summary}
                     </p>
                     {activeProject.value && (
-                      <p className="text-sm text-amber-700 font-bold pt-2">
+                      <p className="text-sm text-[#1e1e4a] font-bold pt-2">
                         Contract Value / Investment: {activeProject.value}
                       </p>
                     )}
@@ -1103,7 +1103,7 @@ export function App() {
                     <div className="space-y-3">
                       {activeProject.scopeOfWorks.map((scope, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                           <span className="text-sm text-slate-700">{scope}</span>
                         </div>
                       ))}
@@ -1117,7 +1117,7 @@ export function App() {
                       {activeProject.technicalMetrics.map((metric, idx) => (
                         <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
                           <span className="block text-xs uppercase text-slate-500 font-bold mb-1">{metric.label}</span>
-                          <span className="text-base font-extrabold text-amber-700 font-mono-tech">{metric.value}</span>
+                          <span className="text-base font-extrabold text-[#1e1e4a] font-mono-tech">{metric.value}</span>
                         </div>
                       ))}
                     </div>
@@ -1149,7 +1149,7 @@ export function App() {
                       Discuss Your Project
                     </button>
                     <a href={`tel:${COMPANY_PROFILE.contact.office}`} className="btn-secondary w-full py-3 text-xs flex items-center justify-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-amber-600" /> {COMPANY_PROFILE.contact.office}
+                      <Phone className="w-3.5 h-3.5 text-[#29295d]" /> {COMPANY_PROFILE.contact.office}
                     </a>
                   </div>
 
@@ -1163,7 +1163,7 @@ export function App() {
                           className="text-left text-xs py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer"
                         >
                           <span className="truncate pr-2">{p.title}</span>
-                          <span className="text-[10px] text-amber-700 font-bold shrink-0">{p.status}</span>
+                          <span className="text-[10px] text-[#1e1e4a] font-bold shrink-0">{p.status}</span>
                         </button>
                       ))}
                     </div>
@@ -1216,7 +1216,7 @@ export function App() {
                     <span className="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-3.5 py-1.5 rounded-full font-bold">
                       Membership No.: 170693
                     </span>
-                    <span className="text-xs bg-amber-50 text-amber-800 border border-amber-200 px-3.5 py-1.5 rounded-full font-bold">
+                    <span className="text-xs bg-blue-50/80 text-[#1e1e4a] border border-blue-200 px-3.5 py-1.5 rounded-full font-bold">
                       SSIP Approved [CDM]
                     </span>
                   </div>
@@ -1227,7 +1227,7 @@ export function App() {
                   <div className="card-clean bg-slate-50/70 p-7 border border-slate-200 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-3">
-                        <FileText className="w-8 h-8 text-amber-600 shrink-0" />
+                        <FileText className="w-8 h-8 text-[#29295d] shrink-0" />
                         <div>
                           <h4 className="font-bold text-slate-950 text-base">CHAS SSIP Certificate</h4>
                           <span className="text-xs text-slate-500">Classification: PUBLIC | SSIP Approved Contractor [CDM]</span>
@@ -1243,7 +1243,7 @@ export function App() {
                       rel="noreferrer"
                       className="btn-secondary text-xs py-2.5 flex items-center justify-center gap-2"
                     >
-                      <ExternalLink className="w-4 h-4 text-amber-600" /> View Verified Certificate (PDF)
+                      <ExternalLink className="w-4 h-4 text-[#29295d]" /> View Verified Certificate (PDF)
                     </a>
                   </div>
 
@@ -1251,7 +1251,7 @@ export function App() {
                   <div className="card-clean bg-slate-50/70 p-7 border border-slate-200 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-3">
-                        <FileText className="w-8 h-8 text-amber-600 shrink-0" />
+                        <FileText className="w-8 h-8 text-[#29295d] shrink-0" />
                         <div>
                           <h4 className="font-bold text-slate-950 text-base">Standard GB Certificate</h4>
                           <span className="text-xs text-slate-500">CHAS Standards Compliance Document</span>
@@ -1267,7 +1267,7 @@ export function App() {
                       rel="noreferrer"
                       className="btn-secondary text-xs py-2.5 flex items-center justify-center gap-2"
                     >
-                      <ExternalLink className="w-4 h-4 text-amber-600" /> View Verified Certificate (PDF)
+                      <ExternalLink className="w-4 h-4 text-[#29295d]" /> View Verified Certificate (PDF)
                     </a>
                   </div>
                 </div>
@@ -1402,7 +1402,7 @@ export function App() {
                           {job.employmentType}
                         </span>
                       </div>
-                      <div className="text-xs text-amber-700 font-bold mb-3">
+                      <div className="text-xs text-[#1e1e4a] font-bold mb-3">
                         {job.salary} • {job.training}
                       </div>
 
@@ -1449,30 +1449,30 @@ export function App() {
                   <div className="card-clean bg-white p-7 border border-slate-200 space-y-4 shadow-sm">
                     <h3 className="text-xl font-bold text-slate-950 mb-2">Company Information</h3>
                     <div className="flex items-start gap-3 text-sm text-slate-700">
-                      <MapPin className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                      <MapPin className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-slate-900">Head Office:</strong>
                         <p>{COMPANY_PROFILE.contact.address.line1}, {COMPANY_PROFILE.contact.address.city}, {COMPANY_PROFILE.contact.address.postcode}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3 text-sm text-slate-700">
-                      <Phone className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                      <Phone className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-slate-900">Main Office:</strong>
-                        <p><a href={`tel:${COMPANY_PROFILE.contact.office}`} className="hover:text-amber-600 font-semibold">{COMPANY_PROFILE.contact.office}</a></p>
+                        <p><a href={`tel:${COMPANY_PROFILE.contact.office}`} className="hover:text-[#29295d] font-semibold">{COMPANY_PROFILE.contact.office}</a></p>
                         <strong className="text-slate-900">Direct Mobile:</strong>
-                        <p><a href={`tel:${COMPANY_PROFILE.contact.mobile}`} className="hover:text-amber-600 font-semibold">{COMPANY_PROFILE.contact.mobile}</a></p>
+                        <p><a href={`tel:${COMPANY_PROFILE.contact.mobile}`} className="hover:text-[#29295d] font-semibold">{COMPANY_PROFILE.contact.mobile}</a></p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3 text-sm text-slate-700">
-                      <Mail className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                      <Mail className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-slate-900">Email Enquiries:</strong>
-                        <p><a href={`mailto:${COMPANY_PROFILE.contact.email}`} className="hover:text-amber-600 font-semibold">{COMPANY_PROFILE.contact.email}</a></p>
+                        <p><a href={`mailto:${COMPANY_PROFILE.contact.email}`} className="hover:text-[#29295d] font-semibold">{COMPANY_PROFILE.contact.email}</a></p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3 text-sm text-slate-700">
-                      <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                      <Clock className="w-5 h-5 text-[#29295d] shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-slate-900">Hours of Operation:</strong>
                         <p>Monday – Friday: 07:00 – 18:00</p>
@@ -1482,16 +1482,16 @@ export function App() {
                   </div>
 
                   {/* Conflict Documentation & Emergency Box */}
-                  <div className="card-clean bg-amber-50/70 p-7 border border-amber-300">
-                    <div className="flex items-center gap-2 text-amber-800 font-bold text-sm mb-2">
-                      <AlertTriangle className="w-4 h-4 text-amber-600" /> 24/7 "Save a Slab" Emergency Hotline
+                  <div className="card-clean bg-blue-50/80/70 p-7 border border-blue-300">
+                    <div className="flex items-center gap-2 text-[#1e1e4a] font-bold text-sm mb-2">
+                      <AlertTriangle className="w-4 h-4 text-[#29295d]" /> 24/7 "Save a Slab" Emergency Hotline
                     </div>
                     <p className="text-xs text-slate-700 mb-4 leading-relaxed">
                       For rapid on-site troubleshooting, cold joint mitigation, and emergency pouring assistance:
                     </p>
                     <a 
                       href={`tel:${COMPANY_PROFILE.contact.legacyEmergencyMobile}`} 
-                      className="block text-center font-bold text-lg text-amber-950 bg-amber-200/70 py-3 rounded-xl border border-amber-300 hover:bg-amber-200 transition"
+                      className="block text-center font-bold text-lg text-[#0f172a] bg-blue-200/70 py-3 rounded-xl border border-blue-300 hover:bg-blue-200 transition"
                     >
                       {COMPANY_PROFILE.contact.legacyEmergencyMobile}
                     </a>
@@ -1509,7 +1509,7 @@ export function App() {
                       rel="noreferrer" 
                       className="btn-secondary w-full py-2.5 text-xs flex items-center justify-center gap-2"
                     >
-                      <svg className="w-4 h-4 fill-current text-amber-600" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                      <svg className="w-4 h-4 fill-current text-[#29295d]" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                       <span>ZNB Construction LinkedIn</span>
                     </a>
                   </div>
@@ -1587,7 +1587,7 @@ export function App() {
 
                         <div>
                           <label className="block text-xs uppercase font-bold text-slate-500 mb-1">Attach Project Drawings / BoQ (PDF, DWG, ZIP)</label>
-                          <input type="file" className="w-full bg-slate-50/80 border border-slate-200 rounded-lg p-2 text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-600 file:text-navy-950 hover:file:bg-amber-400" />
+                          <input type="file" className="w-full bg-slate-50/80 border border-slate-200 rounded-lg p-2 text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-[#29295d] file:text-navy-950 hover:file:bg-amber-400" />
                           <span className="block text-[11px] text-slate-500 mt-1">Up to 25MB file size supported.</span>
                         </div>
 
@@ -1604,7 +1604,7 @@ export function App() {
                         </div>
 
                         <div className="flex items-start gap-2 pt-2">
-                          <input required type="checkbox" id="consent" className="mt-1 rounded border-white/20 text-amber-600 focus:ring-0" />
+                          <input required type="checkbox" id="consent" className="mt-1 rounded border-white/20 text-[#29295d] focus:ring-0" />
                           <label htmlFor="consent" className="text-xs text-slate-500">
                             I consent to ZNB Construction Ltd holding my details to respond to this commercial enquiry in accordance with standard privacy regulations.
                           </label>
@@ -1632,7 +1632,7 @@ export function App() {
               <img src="/assets/znb-logo.jpg" alt="ZNB Logo" className="h-10 w-auto rounded border border-slate-800" />
               <div>
                 <span className="block font-bold text-white text-base">ZNB CONSTRUCTION LTD</span>
-                <span className="block text-[10px] uppercase text-amber-500 tracking-widest font-semibold">Established 2013 • Nationwide UK</span>
+                <span className="block text-[10px] uppercase text-[#3b82f6] tracking-widest font-semibold">Established 2013 • Nationwide UK</span>
               </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed mb-6 max-w-sm">
@@ -1655,13 +1655,13 @@ export function App() {
             <ul className="space-y-2">
               {SERVICES_DATA.slice(0, 5).map(s => (
                 <li key={s.id}>
-                  <button onClick={() => openService(s.slug)} className="hover:text-amber-400 transition text-left text-slate-400 cursor-pointer">
+                  <button onClick={() => openService(s.slug)} className="hover:text-[#60a5fa] transition text-left text-slate-400 cursor-pointer">
                     {s.title}
                   </button>
                 </li>
               ))}
               <li>
-                <button onClick={() => navigateTo('services')} className="text-amber-500 font-bold hover:underline cursor-pointer">
+                <button onClick={() => navigateTo('services')} className="text-[#3b82f6] font-bold hover:underline cursor-pointer">
                   View All 8 Categories →
                 </button>
               </li>
@@ -1672,12 +1672,12 @@ export function App() {
           <div>
             <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><button onClick={() => navigateTo('about')} className="hover:text-amber-400 transition text-slate-400 cursor-pointer">About Us</button></li>
-              <li><button onClick={() => navigateTo('team')} className="hover:text-amber-400 transition text-slate-400 cursor-pointer">Our Management Team</button></li>
-              <li><button onClick={() => navigateTo('projects')} className="hover:text-amber-400 transition text-slate-400 cursor-pointer">Case Studies Archive</button></li>
-              <li><button onClick={() => navigateTo('health-safety')} className="hover:text-amber-400 transition text-slate-400 cursor-pointer">Health & Safety Policy</button></li>
-              <li><button onClick={() => navigateTo('careers')} className="hover:text-amber-400 transition text-slate-400 cursor-pointer">Careers & Operatives</button></li>
-              <li><button onClick={() => navigateTo('contact')} className="hover:text-amber-400 transition text-slate-400 cursor-pointer">Contact & Quotations</button></li>
+              <li><button onClick={() => navigateTo('about')} className="hover:text-[#60a5fa] transition text-slate-400 cursor-pointer">About Us</button></li>
+              <li><button onClick={() => navigateTo('team')} className="hover:text-[#60a5fa] transition text-slate-400 cursor-pointer">Our Management Team</button></li>
+              <li><button onClick={() => navigateTo('projects')} className="hover:text-[#60a5fa] transition text-slate-400 cursor-pointer">Case Studies Archive</button></li>
+              <li><button onClick={() => navigateTo('health-safety')} className="hover:text-[#60a5fa] transition text-slate-400 cursor-pointer">Health & Safety Policy</button></li>
+              <li><button onClick={() => navigateTo('careers')} className="hover:text-[#60a5fa] transition text-slate-400 cursor-pointer">Careers & Operatives</button></li>
+              <li><button onClick={() => navigateTo('contact')} className="hover:text-[#60a5fa] transition text-slate-400 cursor-pointer">Contact & Quotations</button></li>
             </ul>
           </div>
 
@@ -1688,12 +1688,12 @@ export function App() {
               <p>{COMPANY_PROFILE.contact.address.line1}</p>
               <p>{COMPANY_PROFILE.contact.address.city}, {COMPANY_PROFILE.contact.address.postcode}</p>
               <p className="pt-2 text-white font-semibold">
-                Tel: <a href={`tel:${COMPANY_PROFILE.contact.office}`} className="hover:text-amber-400">{COMPANY_PROFILE.contact.office}</a>
+                Tel: <a href={`tel:${COMPANY_PROFILE.contact.office}`} className="hover:text-[#60a5fa]">{COMPANY_PROFILE.contact.office}</a>
               </p>
               <p className="text-white font-semibold">
-                Mobile: <a href={`tel:${COMPANY_PROFILE.contact.mobile}`} className="hover:text-amber-400">{COMPANY_PROFILE.contact.mobile}</a>
+                Mobile: <a href={`tel:${COMPANY_PROFILE.contact.mobile}`} className="hover:text-[#60a5fa]">{COMPANY_PROFILE.contact.mobile}</a>
               </p>
-              <p className="text-amber-400 font-semibold pt-1">
+              <p className="text-[#60a5fa] font-semibold pt-1">
                 Emergency: <a href={`tel:${COMPANY_PROFILE.contact.legacyEmergencyMobile}`} className="hover:underline">{COMPANY_PROFILE.contact.legacyEmergencyMobile}</a>
               </p>
             </address>
@@ -1704,13 +1704,13 @@ export function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
           <p>© {new Date().getFullYear()} ZNB Construction Ltd. All rights reserved. Registered in England & Wales.</p>
           <div className="flex items-center gap-6">
-            <a href={COMPANY_PROFILE.contact.linkedin} target="_blank" rel="noreferrer" className="hover:text-amber-400">
+            <a href={COMPANY_PROFILE.contact.linkedin} target="_blank" rel="noreferrer" className="hover:text-[#60a5fa]">
               LinkedIn
             </a>
-            <button onClick={() => navigateTo('health-safety')} className="hover:text-amber-400 cursor-pointer">
+            <button onClick={() => navigateTo('health-safety')} className="hover:text-[#60a5fa] cursor-pointer">
               HSE Compliance
             </button>
-            <button onClick={() => navigateTo('contact')} className="hover:text-amber-400 cursor-pointer">
+            <button onClick={() => navigateTo('contact')} className="hover:text-[#60a5fa] cursor-pointer">
               Privacy & Cookies
             </button>
           </div>

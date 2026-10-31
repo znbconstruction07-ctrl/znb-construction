@@ -57,7 +57,7 @@ export const ConcreteGridBackground: React.FC = () => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(217, 119, 6, 0.4)';
+        ctx.fillStyle = 'rgba(41, 41, 93, 0.45)';
         ctx.fill();
 
         for (let j = i + 1; j < particles.length; j++) {

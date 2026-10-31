@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-blue: #0284c7;
-  --color-brand-sky: #0ea5e9;
-  --color-brand-amber: #d97706;
-  --color-brand-gold: #f59e0b;
-  --color-deep-slate: #090e17;
+  --color-brand-navy: #1e1e4a;
+  --color-brand-blue: #29295d;
+  --color-brand-cobalt: #363678;
+  --color-brand-sky: #4f51a8;
+  --color-brand-accent: #2563eb;
+  --color-deep-slate: #0b0c16;
   --color-slate-surface: #f8fafc;
   --color-slate-border: #e2e8f0;
 }
@@ -14,11 +15,12 @@
   :root {
     --page: #f8fafc;
     --card: #ffffff;
-    --text: #090e17;
+    --text: #0b0c16;
     --muted: #64748b;
     --border: #e2e8f0;
-    --amber: #d97706;
-    --navy: #090e17;
+    --primary-blue: #29295d;
+    --accent-blue: #3b82f6;
+    --navy: #1e1e4a;
     --white: #ffffff;
   }
 
@@ -120,17 +122,18 @@ p {
   border-radius: 9999px;
 }
 
-.badge-amber {
+.badge-amber,
+.badge-blue {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 12px;
-  background-color: #fef3c7;
-  border: 1px solid #fde68a;
-  color: #92400e;
+  background-color: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #29295d;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: 9999px;
@@ -142,7 +145,7 @@ p {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #090e17;
+  background: #29295d;
   color: #ffffff;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
@@ -153,21 +156,22 @@ p {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(9, 14, 23, 0.12);
+  box-shadow: 0 4px 14px rgba(41, 41, 93, 0.28);
 }
 
 .btn-primary:hover {
-  background: #1e293b;
+  background: #1e1e4a;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(9, 14, 23, 0.2);
+  box-shadow: 0 6px 18px rgba(41, 41, 93, 0.38);
 }
 
-.btn-amber {
+.btn-amber,
+.btn-blue {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #d97706;
+  background: #2563eb;
   color: #ffffff;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
@@ -178,13 +182,14 @@ p {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
 }
 
-.btn-amber:hover {
-  background: #b45309;
+.btn-amber:hover,
+.btn-blue:hover {
+  background: #1d4ed8;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
 }
 
 .btn-secondary {

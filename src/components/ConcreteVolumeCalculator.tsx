@@ -24,9 +24,9 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
     <div className="card-clean p-6 md:p-8 bg-white border border-slate-200">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <span className="badge-amber mb-2">Interactive Estimator</span>
+          <span className="badge-blue mb-2">Interactive Estimator</span>
           <h3 className="text-xl md:text-2xl font-bold text-slate-950 flex items-center gap-2">
-            <Calculator className="w-5 h-5 text-amber-600" />
+            <Calculator className="w-5 h-5 text-blue-600" />
             Concrete Volume & Mixer Logistics Estimator
           </h3>
           <p className="text-xs text-slate-500 mt-1">
@@ -36,7 +36,7 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
 
         <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl text-center sm:text-right shrink-0">
           <span className="block text-[11px] uppercase tracking-wider text-slate-500 font-semibold">Estimated Concrete Volume</span>
-          <span className="text-3xl md:text-4xl font-extrabold text-amber-600 tracking-tight">{totalVolume} m³</span>
+          <span className="text-3xl md:text-4xl font-extrabold text-blue-600 tracking-tight">{totalVolume} m³</span>
           <span className="block text-[11px] text-slate-500 mt-0.5">Approx. {approximateTruckloads} mixer truckloads ({wasteFactor}% margin)</span>
         </div>
       </div>
@@ -47,7 +47,7 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
           <select
             value={structureType}
             onChange={(e) => setStructureType(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-amber-600"
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
           >
             <option>Slab / Ground Floor</option>
             <option>Slipform Core Wall</option>
@@ -66,7 +66,7 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
             step="0.5"
             value={length}
             onChange={(e) => setLength(Math.max(0.1, Number(e.target.value)))}
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-amber-600"
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
           />
         </div>
 
@@ -79,7 +79,7 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
             step="0.5"
             value={width}
             onChange={(e) => setWidth(Math.max(0.1, Number(e.target.value)))}
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-amber-600"
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
           />
         </div>
 
@@ -92,7 +92,7 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
             step="0.05"
             value={depth}
             onChange={(e) => setDepth(Math.max(0.01, Number(e.target.value)))}
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-amber-600"
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
           />
         </div>
 
@@ -101,7 +101,7 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
           <select
             value={wasteFactor}
             onChange={(e) => setWasteFactor(Number(e.target.value))}
-            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-amber-600"
+            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
           >
             <option value={0}>0% (Exact)</option>
             <option value={3}>3% (Paved)</option>
@@ -120,7 +120,7 @@ export const ConcreteVolumeCalculator: React.FC<{ onApplyToQuote?: (scope: strin
         {onApplyToQuote && (
           <button
             onClick={handleApply}
-            className="btn-amber w-full sm:w-auto py-2.5 px-6 text-xs font-semibold"
+            className="btn-blue w-full sm:w-auto py-2.5 px-6 text-xs font-semibold"
           >
             Transfer to Quotation Request <ArrowRight className="w-3.5 h-3.5 ml-1" />
           </button>

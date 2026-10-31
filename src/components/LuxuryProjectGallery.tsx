@@ -21,7 +21,7 @@ export const LuxuryProjectGallery: React.FC<{ onSelectProject: (id: string) => v
       <div className="card-clean p-6 md:p-8 bg-white border border-slate-200">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
           <div>
-            <span className="badge-amber mb-2">Technical Case Study Visualizer</span>
+            <span className="badge-blue mb-2">Technical Case Study Visualizer</span>
             <h3 className="text-2xl md:text-3xl font-extrabold text-slate-950 tracking-tight">
               Precision Engineering: Steel Rig vs Finished Superstructure
             </h3>
@@ -30,7 +30,7 @@ export const LuxuryProjectGallery: React.FC<{ onSelectProject: (id: string) => v
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono text-slate-700 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-amber-600" /> Drag to inspect
+            <SlidersHorizontal className="w-3.5 h-3.5 text-blue-600" /> Drag to inspect
           </div>
         </div>
 
@@ -57,7 +57,7 @@ export const LuxuryProjectGallery: React.FC<{ onSelectProject: (id: string) => v
               className="absolute inset-0 w-full h-full object-cover max-w-none"
               style={{ width: '100%', minWidth: '1000px' }}
             />
-            <div className="absolute top-4 left-4 bg-amber-600/90 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 text-xs font-semibold text-white">
+            <div className="absolute top-4 left-4 bg-blue-600/90 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 text-xs font-semibold text-white">
               Slipform Climbing Stage
             </div>
           </div>
@@ -135,7 +135,7 @@ export const LuxuryProjectGallery: React.FC<{ onSelectProject: (id: string) => v
                 <span className={`px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase ${
                   project.status === 'Completed' 
                     ? 'bg-white/95 text-slate-950 shadow-xs' 
-                    : 'bg-amber-500 text-white shadow-xs'
+                    : 'bg-blue-500 text-white shadow-xs'
                 }`}>
                   {project.status}
                 </span>
@@ -150,11 +150,11 @@ export const LuxuryProjectGallery: React.FC<{ onSelectProject: (id: string) => v
             <div className="p-6 flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-2">
-                  <MapPin className="w-3.5 h-3.5 text-amber-600" />
+                  <MapPin className="w-3.5 h-3.5 text-blue-600" />
                   <span>{project.location}</span>
                 </div>
 
-                <h4 className="text-lg font-bold text-slate-950 group-hover:text-amber-700 transition line-clamp-1 mb-2">
+                <h4 className="text-lg font-bold text-slate-950 group-hover:text-blue-700 transition line-clamp-1 mb-2">
                   {project.title}
                 </h4>
 
@@ -170,7 +170,7 @@ export const LuxuryProjectGallery: React.FC<{ onSelectProject: (id: string) => v
                   <span className="font-semibold text-slate-900">{project.technicalMetrics[0]?.value || 'Turnkey Package'}</span>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-900 group-hover:text-amber-700">
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-900 group-hover:text-blue-700">
                   <span>View Full Technical Specification</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition" />
                 </div>
