@@ -161,7 +161,7 @@ export function App() {
           </button>
 
           {/* Desktop Nav Links */}
-          <div className="hidden xl:flex items-center gap-6 text-[13px] font-semibold tracking-wide whitespace-nowrap h-full">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-6 text-[13px] font-semibold tracking-wide whitespace-nowrap h-full">
             <button 
               onClick={() => navigateTo('home')}
               className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'home' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
@@ -236,16 +236,16 @@ export function App() {
           </div>
 
           {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3 shrink-0">
+          <div className="hidden md:flex items-center gap-2 xl:gap-3 shrink-0">
             <button 
               onClick={() => navigateTo('contact')}
-              className="btn-primary text-xs uppercase tracking-wider py-2.5 px-4 font-bold shadow-md whitespace-nowrap cursor-pointer"
+              className="btn-primary text-[11px] xl:text-xs uppercase tracking-wider py-2 xl:py-2.5 px-3 xl:px-4 font-bold shadow-md whitespace-nowrap cursor-pointer"
             >
               Request a Quote
             </button>
             <a 
               href={`tel:${COMPANY_PROFILE.contact.office.replace(/\s+/g, '')}`}
-              className="btn-secondary text-xs font-semibold py-2.5 px-3.5 whitespace-nowrap flex items-center gap-1.5"
+              className="btn-secondary text-[11px] xl:text-xs font-semibold py-2 xl:py-2.5 px-3 xl:px-3.5 whitespace-nowrap flex items-center gap-1.5"
             >
               <Phone className="w-3.5 h-3.5 text-[#29295d]" />
               <span>{COMPANY_PROFILE.contact.office}</span>
@@ -255,7 +255,7 @@ export function App() {
           {/* Mobile hamburger */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-            className="xl:hidden p-2 text-slate-600 hover:text-slate-950 focus:outline-none cursor-pointer"
+            className="lg:hidden p-2 text-slate-600 hover:text-slate-950 focus:outline-none cursor-pointer"
             aria-label="Toggle navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -264,7 +264,7 @@ export function App() {
 
         {/* Mobile menu modal/drawer */}
         {mobileMenuOpen && (
-          <div className="xl:hidden glass-panel border-t border-slate-200 px-6 py-6 flex flex-col gap-4 text-base font-semibold">
+          <div className="lg:hidden glass-panel border-t border-slate-200 px-6 py-6 flex flex-col gap-4 text-base font-semibold">
             <button onClick={() => navigateTo('home')} className="text-left py-2 border-b border-slate-100">Home</button>
             <button onClick={() => navigateTo('about')} className="text-left py-2 border-b border-slate-100">About Us</button>
             <button onClick={() => navigateTo('team')} className="text-left py-2 border-b border-slate-100">Our Team</button>
