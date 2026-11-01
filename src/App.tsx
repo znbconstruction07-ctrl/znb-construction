@@ -307,7 +307,7 @@ export function App() {
           <div>
             {/* Cinematic High-Quality Scroll Video Animation Sequence */}
             <CinematicVideoScroll 
-              totalFrames={240} 
+              totalFrames={204} 
               onExploreClick={() => navigateTo('projects')} 
             />
 

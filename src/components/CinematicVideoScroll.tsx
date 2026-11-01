@@ -7,7 +7,7 @@ interface CinematicVideoScrollProps {
 }
 
 export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
-  totalFrames = 240,
+  totalFrames = 204,
   onExploreClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,12 +22,12 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
   const targetFrameRef = useRef<number>(0);
   const lastDrawnFrameRef = useRef<number>(-1);
 
-  // Progressive frame preloading: load initial batch rapidly, then stream remaining frames
+  // Progressive frame preloading
   useEffect(() => {
     let isCancelled = false;
     let count = 0;
 
-    // Load first keyframe immediately to paint canvas without delay
+    // Load first frame immediately to paint instantly on page open
     const firstImg = new Image();
     firstImg.src = `/frames/frame_000.webp`;
     firstImg.onload = () => {
@@ -40,12 +40,12 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
       }
     };
 
-    // Staggered loading: load every 4th frame first for instantaneous scrubbing responsiveness
+    // Staggered loading: load keyframes first, then load the full contiguous sequence
     const priorityIndices: number[] = [];
     const regularIndices: number[] = [];
 
     for (let i = 1; i < totalFrames; i++) {
-      if (i % 4 === 0) {
+      if (i % 3 === 0) {
         priorityIndices.push(i);
       } else {
         regularIndices.push(i);
@@ -67,7 +67,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
             count++;
             setLoadedCount(count);
             loadedInBatch++;
-            if (count >= 12) {
+            if (count >= 10) {
               setIsLoaded(true);
             }
             if (loadedInBatch === indices.length) {
@@ -84,7 +84,6 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
       });
     };
 
-    // Load priority frames first, then remainder
     loadBatch(priorityIndices, () => {
       if (!isCancelled) {
         loadBatch(regularIndices);
@@ -96,17 +95,17 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     };
   }, [totalFrames]);
 
-  // High performance cover drawing onto canvas with retina DPR scaling
+  // Robust canvas drawing with DPR scaling
   const drawFrame = (frameIndex: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
-    // Nearest neighbor fallback: if exact frame is still downloading, find nearest loaded frame
+    // Find requested frame or the closest loaded frame (forward & backward)
     let img: HTMLImageElement | null = imagesRef.current[frameIndex];
     if (!img || !img.complete) {
-      for (let offset = 1; offset < 30; offset++) {
+      for (let offset = 1; offset < 40; offset++) {
         const prev = frameIndex - offset;
         if (prev >= 0 && imagesRef.current[prev]?.complete) {
           img = imagesRef.current[prev];
@@ -154,13 +153,13 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     lastDrawnFrameRef.current = frameIndex;
   };
 
-  // High-performance RAF lerp loop (interpolates towards targetFrame on scroll)
+  // High-performance RAF lerp loop (interpolates targetFrame smoothly)
   useEffect(() => {
     const lerp = (start: number, end: number, factor: number) => start + (end - start) * factor;
 
     const tick = () => {
-      // 0.22 lerp factor guarantees ultra-smooth, instant-feeling scroll scrub
-      currentFrameRef.current = lerp(currentFrameRef.current, targetFrameRef.current, 0.22);
+      // Smooth interpolation towards target frame
+      currentFrameRef.current = lerp(currentFrameRef.current, targetFrameRef.current, 0.2);
       const targetIndex = Math.max(0, Math.min(totalFrames - 1, Math.round(currentFrameRef.current)));
 
       drawFrame(targetIndex);
@@ -177,9 +176,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     };
   }, [totalFrames]);
 
-  // Precise scroll calculation:
-  // Starts when container top hits top of viewport (scrolled = 0)
-  // Reaches 100% when reaching the end of the scroll track
+  // Viewport scroll measurement
   useEffect(() => {
     const handleScroll = () => {
       const container = containerRef.current;
@@ -191,8 +188,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
 
       if (totalScrollable <= 0) return;
 
-      // When rect.top is 0, user has scrolled to start of video
-      // When rect.top is -totalScrollable, user has completed video
+      // Scrolled distance from top of container entering viewport
       const scrolled = -rect.top;
       const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
 
@@ -212,26 +208,26 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
 
   // Stage narrative copy reflecting the 3 engineering milestones
   const getStageContent = () => {
-    if (currentProgress < 0.33) {
+    if (currentProgress < 0.35) {
       return {
         badge: 'ENGINEERING EXCELLENCE • UK-WIDE',
         title: 'PRECISION CONCRETE & SLIPFORM',
         subtitle: 'Turnkey vertical core installations delivered with micron-level tolerance.',
-        step: '01 / INITIATION',
+        step: '01 / RIG SETUP & COMMENCEMENT',
       };
-    } else if (currentProgress < 0.72) {
+    } else if (currentProgress < 0.75) {
       return {
         badge: 'HIGH-TOLERANCE MONOLITHIC CORES',
         title: 'CONTINUOUS 24/7 HYDRAULIC CLIMB',
         subtitle: 'Climbing up to 50 storeys at 4–5m per day with continuous laser alignment.',
-        step: '02 / ELEVATION',
+        step: '02 / ELEVATION & HYDRAULICS',
       };
     } else {
       return {
         badge: 'NATIONWIDE TIER-1 DELIVERY',
         title: 'SPEED, SAFETY & FIRST-TIME ACCURACY',
         subtitle: 'Eliminating cold-joints, accelerating delivery, and achieving zero-harm standards.',
-        step: '03 / COMPLETION',
+        step: '03 / TOP OUT & MONOLITHIC FINISH',
       };
     }
   };
@@ -241,31 +237,30 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full bg-[#0d0f1f]"
-      style={{ height: '360vh' }}
+      className="relative w-full bg-[#111322]"
+      style={{ height: '320vh' }}
     >
-      {/* Sticky Fullscreen Player: pinned in viewport across 360vh scroll track */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#0d0f1f] z-20">
+      {/* Sticky Fullscreen Player: pinned in viewport across scroll track */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#111322] z-20">
         {/* Render Canvas */}
         <canvas
           ref={canvasRef}
           className="w-full h-full block object-cover"
-          style={{ filter: 'contrast(1.05) brightness(1.02)' }}
         />
 
-        {/* Cinematic Vignette */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0d0f1f] via-transparent to-[#0d0f1f]/60" />
+        {/* Ambient Cinema Lighting Overlay */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#111322]/80 via-transparent to-[#111322]/40" />
 
         {/* Top HUD: Status Bar */}
-        <div className="absolute top-24 sm:top-28 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none z-30">
-          <div className="flex items-center gap-3 bg-[#0d0f1f]/85 backdrop-blur-md px-4 py-2 rounded-full border border-blue-900/40 text-xs text-slate-300 shadow-xl">
+        <div className="absolute top-6 sm:top-8 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none z-30">
+          <div className="flex items-center gap-3 bg-[#111322]/80 backdrop-blur-md px-4 py-2 rounded-full border border-blue-500/20 text-xs text-slate-200 shadow-xl">
             <span className="w-2.5 h-2.5 rounded-full bg-[#3b82f6] animate-pulse" />
             <span className="font-mono-tech tracking-wider uppercase font-semibold text-[11px] text-[#60a5fa]">
               Slipform Engineering Sequence
             </span>
           </div>
 
-          <div className="flex items-center gap-3 bg-[#0d0f1f]/85 backdrop-blur-md px-4 py-2 rounded-full border border-blue-900/40 text-xs text-slate-300 shadow-xl font-mono-tech">
+          <div className="flex items-center gap-3 bg-[#111322]/80 backdrop-blur-md px-4 py-2 rounded-full border border-blue-500/20 text-xs text-slate-200 shadow-xl font-mono-tech">
             <span className="text-slate-400">{stage.step}</span>
             <span className="text-slate-600">|</span>
             <span className="text-[#60a5fa] font-bold">{Math.round(currentProgress * 100)}% SCROLLED</span>
@@ -273,8 +268,8 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
         </div>
 
         {/* Compact Right-Aligned Overlay Card */}
-        <div className="absolute bottom-10 right-4 sm:right-8 md:right-12 z-30 pointer-events-none max-w-sm sm:max-w-md w-full">
-          <div className="bg-[#0d0f1f]/90 backdrop-blur-xl border border-blue-900/40 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+        <div className="absolute bottom-8 right-4 sm:right-8 md:right-12 z-30 pointer-events-none max-w-sm sm:max-w-md w-full">
+          <div className="bg-[#111322]/90 backdrop-blur-xl border border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
             <div className="flex items-center gap-2 mb-2">
               <span className="badge-amber text-[10px]">
                 <Sparkles className="w-3 h-3 text-[#3b82f6]" />
@@ -323,15 +318,15 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
         {/* Scroll Indicator Prompt */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-[11px] font-mono-tech uppercase tracking-widest text-slate-300 pointer-events-none z-30 animate-bounce">
           <ArrowDown className="w-3.5 h-3.5 text-[#60a5fa]" />
-          <span>Scroll to advance core construction</span>
+          <span>Scroll down to advance build</span>
         </div>
 
         {/* Preload Status Indicator */}
         {!isLoaded && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0d0f1f]/95 backdrop-blur-md border border-blue-900/40 px-6 py-4 rounded-2xl flex items-center gap-3 z-40 shadow-2xl">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#111322]/95 backdrop-blur-md border border-blue-500/20 px-6 py-4 rounded-2xl flex items-center gap-3 z-40 shadow-2xl">
             <div className="w-5 h-5 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
             <div className="text-xs text-slate-300">
-              <span className="font-bold text-white block">Buffering Full High-Definition Sequence</span>
+              <span className="font-bold text-white block">Buffering Full Slipform Sequence</span>
               <span className="text-[11px] text-slate-400 font-mono-tech">
                 {Math.round((loadedCount / totalFrames) * 100)}% preloaded
               </span>
@@ -340,8 +335,8 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
         )}
       </div>
 
-      {/* Seamless Transition Border to Next Section */}
-      <div className="relative z-20 h-16 bg-gradient-to-b from-[#0d0f1f] to-white" />
+      {/* Seamless Transition Layer into Hero Section */}
+      <div className="relative z-20 -mt-16 h-16 bg-gradient-to-b from-transparent to-white pointer-events-none" />
     </div>
   );
 };
