@@ -102,9 +102,9 @@ export function App() {
       <ConcreteGridBackground />
 
       {/* Top Notification / Emergency Bar */}
-      <header className="bg-slate-950 border-b border-slate-900 text-xs py-2.5 px-4 z-50 text-slate-400">
+      <header className="bg-slate-950 border-b border-slate-900 text-xs py-2.5 z-50 text-slate-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between items-center gap-3">
-          <div className="flex items-center gap-4 text-slate-400">
+          <div className="flex items-center gap-3 sm:gap-4 text-slate-400">
             <span className="flex items-center gap-1.5 font-medium">
               <MapPin className="w-3.5 h-3.5 text-[#3b82f6]" /> Manchester, UK (Nationwide Delivery)
             </span>
@@ -114,7 +114,7 @@ export function App() {
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-slate-400">
+          <div className="flex items-center gap-3 sm:gap-4 text-slate-400">
             <a 
               href={`tel:${COMPANY_PROFILE.contact.legacyEmergencyMobile}`} 
               className="flex items-center gap-1.5 text-[#60a5fa] hover:text-white font-semibold transition"
@@ -139,7 +139,7 @@ export function App() {
 
       {/* Main Navigation */}
       <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20 gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20 gap-3">
           {/* Logo */}
           <button 
             onClick={() => navigateTo('home')} 
@@ -161,7 +161,7 @@ export function App() {
           </button>
 
           {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-4 xl:gap-6 text-[13px] font-semibold tracking-wide whitespace-nowrap h-full">
+          <div className="hidden xl:flex items-center gap-5 2xl:gap-6 text-[13px] font-semibold tracking-wide whitespace-nowrap h-full">
             <button 
               onClick={() => navigateTo('home')}
               className={`h-full flex items-center relative transition cursor-pointer px-1 ${currentRoute === 'home' ? 'text-slate-950 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#29295d]' : 'text-slate-600 hover:text-slate-950'}`}
@@ -236,16 +236,16 @@ export function App() {
           </div>
 
           {/* Action CTAs */}
-          <div className="hidden md:flex items-center gap-2 xl:gap-3 shrink-0">
+          <div className="flex items-center gap-2 xl:gap-3 shrink-0">
             <button 
               onClick={() => navigateTo('contact')}
-              className="btn-primary text-[11px] xl:text-xs uppercase tracking-wider py-2 xl:py-2.5 px-3 xl:px-4 font-bold shadow-md whitespace-nowrap cursor-pointer"
+              className="btn-primary text-xs uppercase tracking-wider py-2.5 px-4 font-bold shadow-md whitespace-nowrap cursor-pointer"
             >
               Request a Quote
             </button>
             <a 
               href={`tel:${COMPANY_PROFILE.contact.office.replace(/\s+/g, '')}`}
-              className="btn-secondary text-[11px] xl:text-xs font-semibold py-2 xl:py-2.5 px-3 xl:px-3.5 whitespace-nowrap flex items-center gap-1.5"
+              className="btn-secondary text-xs font-semibold py-2.5 px-3.5 whitespace-nowrap flex items-center gap-1.5"
             >
               <Phone className="w-3.5 h-3.5 text-[#29295d]" />
               <span>{COMPANY_PROFILE.contact.office}</span>
@@ -255,7 +255,7 @@ export function App() {
           {/* Mobile hamburger */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-            className="lg:hidden p-2 text-slate-600 hover:text-slate-950 focus:outline-none cursor-pointer"
+            className="xl:hidden p-2 text-slate-600 hover:text-slate-950 focus:outline-none cursor-pointer"
             aria-label="Toggle navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -264,7 +264,7 @@ export function App() {
 
         {/* Mobile menu modal/drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden glass-panel border-t border-slate-200 px-6 py-6 flex flex-col gap-4 text-base font-semibold">
+          <div className="xl:hidden glass-panel border-t border-slate-200 px-6 py-6 flex flex-col gap-4 text-base font-semibold">
             <button onClick={() => navigateTo('home')} className="text-left py-2 border-b border-slate-100">Home</button>
             <button onClick={() => navigateTo('about')} className="text-left py-2 border-b border-slate-100">About Us</button>
             <button onClick={() => navigateTo('team')} className="text-left py-2 border-b border-slate-100">Our Team</button>

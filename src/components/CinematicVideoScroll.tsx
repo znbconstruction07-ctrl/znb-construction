@@ -237,39 +237,36 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full bg-[#111322]"
-      style={{ height: '320vh' }}
+      className="relative w-full bg-[#1e2338]"
+      style={{ height: '240vh' }}
     >
       {/* Sticky Fullscreen Player: pinned in viewport across scroll track */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#111322] z-20">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#1e2338] z-20">
         {/* Render Canvas */}
         <canvas
           ref={canvasRef}
           className="w-full h-full block object-cover"
         />
 
-        {/* Ambient Cinema Lighting Overlay */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#111322]/80 via-transparent to-[#111322]/40" />
-
         {/* Top HUD: Status Bar */}
         <div className="absolute top-6 sm:top-8 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pointer-events-none z-30">
-          <div className="flex items-center gap-3 bg-[#111322]/80 backdrop-blur-md px-4 py-2 rounded-full border border-blue-500/20 text-xs text-slate-200 shadow-xl">
+          <div className="flex items-center gap-3 bg-[#1e2338]/85 backdrop-blur-md px-4 py-2 rounded-full border border-blue-400/20 text-xs text-slate-200 shadow-xl">
             <span className="w-2.5 h-2.5 rounded-full bg-[#3b82f6] animate-pulse" />
-            <span className="font-mono-tech tracking-wider uppercase font-semibold text-[11px] text-[#60a5fa]">
+            <span className="font-mono-tech tracking-wider uppercase font-semibold text-[11px] text-[#93c5fd]">
               Slipform Engineering Sequence
             </span>
           </div>
 
-          <div className="flex items-center gap-3 bg-[#111322]/80 backdrop-blur-md px-4 py-2 rounded-full border border-blue-500/20 text-xs text-slate-200 shadow-xl font-mono-tech">
-            <span className="text-slate-400">{stage.step}</span>
-            <span className="text-slate-600">|</span>
-            <span className="text-[#60a5fa] font-bold">{Math.round(currentProgress * 100)}% SCROLLED</span>
+          <div className="flex items-center gap-3 bg-[#1e2338]/85 backdrop-blur-md px-4 py-2 rounded-full border border-blue-400/20 text-xs text-slate-200 shadow-xl font-mono-tech">
+            <span className="text-slate-300">{stage.step}</span>
+            <span className="text-slate-500">|</span>
+            <span className="text-[#93c5fd] font-bold">{Math.round(currentProgress * 100)}% SCROLLED</span>
           </div>
         </div>
 
         {/* Compact Right-Aligned Overlay Card */}
         <div className="absolute bottom-8 right-4 sm:right-8 md:right-12 z-30 pointer-events-none max-w-sm sm:max-w-md w-full">
-          <div className="bg-[#111322]/90 backdrop-blur-xl border border-blue-500/20 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+          <div className="bg-[#1e2338]/90 backdrop-blur-xl border border-blue-400/25 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
             <div className="flex items-center gap-2 mb-2">
               <span className="badge-amber text-[10px]">
                 <Sparkles className="w-3 h-3 text-[#3b82f6]" />
@@ -288,8 +285,8 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
             {/* Scrub Progress Bar */}
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[11px] font-mono-tech text-slate-400">
-                <span className="flex items-center gap-1.5 text-[#60a5fa] font-semibold">
-                  <Play className="w-3 h-3 fill-[#60a5fa] text-[#60a5fa]" /> Frame-by-frame scrub
+                <span className="flex items-center gap-1.5 text-[#93c5fd] font-semibold">
+                  <Play className="w-3 h-3 fill-[#93c5fd] text-[#93c5fd]" /> Frame-by-frame scrub
                 </span>
                 <span>{Math.round(currentFrameRef.current) + 1} / {totalFrames}</span>
               </div>
@@ -304,7 +301,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
                 <div className="pt-2 pointer-events-auto flex items-center justify-between">
                   <button
                     onClick={onExploreClick}
-                    className="text-xs uppercase font-bold text-[#60a5fa] hover:text-[#93c5fd] transition flex items-center gap-1.5 cursor-pointer font-mono-tech"
+                    className="text-xs uppercase font-bold text-[#93c5fd] hover:text-white transition flex items-center gap-1.5 cursor-pointer font-mono-tech"
                   >
                     <span>View Completed Projects</span>
                     <span>→</span>
@@ -317,13 +314,13 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
 
         {/* Scroll Indicator Prompt */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-[11px] font-mono-tech uppercase tracking-widest text-slate-300 pointer-events-none z-30 animate-bounce">
-          <ArrowDown className="w-3.5 h-3.5 text-[#60a5fa]" />
+          <ArrowDown className="w-3.5 h-3.5 text-[#93c5fd]" />
           <span>Scroll down to advance build</span>
         </div>
 
         {/* Preload Status Indicator */}
         {!isLoaded && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#111322]/95 backdrop-blur-md border border-blue-500/20 px-6 py-4 rounded-2xl flex items-center gap-3 z-40 shadow-2xl">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#1e2338]/95 backdrop-blur-md border border-blue-400/25 px-6 py-4 rounded-2xl flex items-center gap-3 z-40 shadow-2xl">
             <div className="w-5 h-5 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
             <div className="text-xs text-slate-300">
               <span className="font-bold text-white block">Buffering Full Slipform Sequence</span>
@@ -334,9 +331,6 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
           </div>
         )}
       </div>
-
-      {/* Seamless Transition Layer into Hero Section */}
-      <div className="relative z-20 -mt-16 h-16 bg-gradient-to-b from-transparent to-white pointer-events-none" />
     </div>
   );
 };
