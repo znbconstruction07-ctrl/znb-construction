@@ -97,7 +97,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-50/800 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-50/800 selection:text-white relative overflow-x-clip">
       {/* Dynamic Animated Canvas Grid & Structural Filament Background */}
       <ConcreteGridBackground />
 
