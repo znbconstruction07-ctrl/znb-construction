@@ -192,13 +192,14 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
       if (!container) return;
 
       const rect = container.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const totalScrollable = rect.height - windowHeight;
+      const navbarOffset = 80; // height of sticky h-20 navbar
+      const effectiveViewportHeight = window.innerHeight - navbarOffset;
+      const totalScrollable = rect.height - effectiveViewportHeight;
 
       if (totalScrollable <= 0) return;
 
-      // Scrolled distance from top of container entering viewport
-      const scrolled = -rect.top;
+      // Scrolled distance from when container top meets the bottom of navbar
+      const scrolled = navbarOffset - rect.top;
       const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
 
       setCurrentProgress(progress);
@@ -249,8 +250,8 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
       className="relative w-full bg-[#1e2338]"
       style={{ height: '240vh' }}
     >
-      {/* Sticky Fullscreen Player: pinned in viewport across scroll track */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#1e2338] z-20">
+      {/* Sticky Fullscreen Player: pinned cleanly directly below the 80px (h-20) main navbar */}
+      <div className="sticky top-20 h-[calc(100vh-5rem)] w-full overflow-hidden flex items-center justify-center bg-[#1e2338] z-20">
         {/* Render Canvas */}
         <canvas
           ref={canvasRef}
