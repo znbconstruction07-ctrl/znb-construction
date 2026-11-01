@@ -7,12 +7,12 @@ interface CinematicVideoScrollProps {
 }
 
 export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
-  totalFrames = 204,
+  totalFrames = 220,
   onExploreClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(totalFrames).fill(null));
+  const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const [loadedCount, setLoadedCount] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [currentProgress, setCurrentProgress] = useState<number>(0);
@@ -20,11 +20,12 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
   const animationFrameId = useRef<number | null>(null);
   const currentFrameRef = useRef<number>(0);
   const targetFrameRef = useRef<number>(0);
-  const lastDrawnFrameRef = useRef<number>(-1);
+  const lastDrawnImageRef = useRef<HTMLImageElement | null>(null);
 
-  // Progressive frame preloading
+  // Progressive frame preloading with robust error resilience
   useEffect(() => {
     let isCancelled = false;
+    imagesRef.current = new Array(totalFrames).fill(null);
     let count = 0;
 
     // Load first frame immediately to paint instantly on page open
@@ -33,6 +34,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     firstImg.onload = () => {
       if (!isCancelled) {
         imagesRef.current[0] = firstImg;
+        lastDrawnImageRef.current = firstImg;
         count++;
         setLoadedCount(count);
         setIsLoaded(true);
@@ -40,15 +42,15 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
       }
     };
 
-    // Staggered loading: load keyframes first, then load the full contiguous sequence
-    const priorityIndices: number[] = [];
-    const regularIndices: number[] = [];
+    // Staggered loading: load every 2nd keyframe first, then the remaining frames
+    const keyframes: number[] = [];
+    const inBetweenFrames: number[] = [];
 
     for (let i = 1; i < totalFrames; i++) {
-      if (i % 3 === 0) {
-        priorityIndices.push(i);
+      if (i % 2 === 0) {
+        keyframes.push(i);
       } else {
-        regularIndices.push(i);
+        inBetweenFrames.push(i);
       }
     }
 
@@ -67,7 +69,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
             count++;
             setLoadedCount(count);
             loadedInBatch++;
-            if (count >= 10) {
+            if (count >= 8) {
               setIsLoaded(true);
             }
             if (loadedInBatch === indices.length) {
@@ -84,9 +86,10 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
       });
     };
 
-    loadBatch(priorityIndices, () => {
+    // Fast priority load of keyframes, then complete set
+    loadBatch(keyframes, () => {
       if (!isCancelled) {
-        loadBatch(regularIndices);
+        loadBatch(inBetweenFrames);
       }
     });
 
@@ -95,28 +98,34 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
     };
   }, [totalFrames]);
 
-  // Robust canvas drawing with DPR scaling
+  // Robust canvas drawing with DPR scaling and guaranteed fallback image
   const drawFrame = (frameIndex: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
-    // Find requested frame or the closest loaded frame (forward & backward)
+    // Find requested frame or the nearest loaded frame
     let img: HTMLImageElement | null = imagesRef.current[frameIndex];
-    if (!img || !img.complete) {
-      for (let offset = 1; offset < 40; offset++) {
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      // Search outward for closest available frame
+      for (let offset = 1; offset < totalFrames; offset++) {
         const prev = frameIndex - offset;
-        if (prev >= 0 && imagesRef.current[prev]?.complete) {
+        if (prev >= 0 && imagesRef.current[prev]?.complete && imagesRef.current[prev]!.naturalWidth > 0) {
           img = imagesRef.current[prev];
           break;
         }
         const next = frameIndex + offset;
-        if (next < totalFrames && imagesRef.current[next]?.complete) {
+        if (next < totalFrames && imagesRef.current[next]?.complete && imagesRef.current[next]!.naturalWidth > 0) {
           img = imagesRef.current[next];
           break;
         }
       }
+    }
+
+    // Ultimate fallback: never clear canvas or draw blue void; reuse last painted image
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      img = lastDrawnImageRef.current;
     }
 
     if (!img || !img.complete || img.naturalWidth === 0) return;
@@ -150,7 +159,7 @@ export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
 
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     ctx.restore();
-    lastDrawnFrameRef.current = frameIndex;
+    lastDrawnImageRef.current = img;
   };
 
   // High-performance RAF lerp loop (interpolates targetFrame smoothly)
