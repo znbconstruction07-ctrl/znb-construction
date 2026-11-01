@@ -7,7 +7,7 @@ interface CinematicVideoScrollProps {
 }
 
 export const CinematicVideoScroll: React.FC<CinematicVideoScrollProps> = ({
-  totalFrames = 240,
+  totalFrames = 220,
   onExploreClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
