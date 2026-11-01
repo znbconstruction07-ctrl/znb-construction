@@ -35,7 +35,6 @@ import {
 import { ConcreteGridBackground } from './components/ConcreteGridBackground';
 import { ConcreteVolumeCalculator } from './components/ConcreteVolumeCalculator';
 import { LuxuryProjectGallery } from './components/LuxuryProjectGallery';
-import { CinematicVideoScroll } from './components/CinematicVideoScroll';
 
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<string>('home');
@@ -305,12 +304,6 @@ export function App() {
         {/* VIEW: HOME */}
         {currentRoute === 'home' && (
           <div>
-            {/* Cinematic High-Quality Scroll Video Animation Sequence */}
-            <CinematicVideoScroll 
-              totalFrames={240} 
-              onExploreClick={() => navigateTo('projects')} 
-            />
-
             {/* Cinematic Hero - Spacious & De-congested */}
             <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white via-slate-50 to-slate-100 py-28 sm:py-36">
               {/* Subtle ambient lighting */}
